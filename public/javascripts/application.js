@@ -13,8 +13,6 @@ function loadSnake(difficulty_level) {
 		alert("This level has not been implemented yet! Choose 'Easy'");
 	}
 
-
-
 }
 
 function generate_snake(no_of_rows_n_cols){
@@ -143,7 +141,8 @@ function check_for_snake(div_id) {
 		}
 	}
 	else {
-		alert("You dont have any more attempts!.")
+		alert("You dont have any more attempts!. Restarting the Game!")
+		window.location = "/"
 		document.getElementById('no_of_attempts').value  = 0;
 		document.getElementById('user_snake_body').value = '';
 		document.getElementById('no_of_cells').value = 0;
