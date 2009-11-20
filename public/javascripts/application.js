@@ -1,7 +1,7 @@
 function loadSnake(difficulty_level) {
 	if(difficulty_level == 'easy'){
 		no_of_rows_n_cols = 3;
-		document.getElementById('show_status').innerHTML='Playing Easy Head n Tail Game!'
+		document.getElementById('show_status').innerHTML='You are Playing Head n Tail Game! <br /> You have ' + (no_of_rows_n_cols + 1) + ' attempts <br />'
 		document.getElementById('show_status').style.display=''
 		document.getElementById('difficulty_level').style.display='none'
 		snake_grid = generate_snake(no_of_rows_n_cols);
@@ -47,11 +47,11 @@ snake_grid[rand_index] = 2
 function generateGrid(no_of_rows_n_cols,snake_grid) {
 	divs = ""
 	for(i=0; i<no_of_rows_n_cols;i++ ) {
-		divs = divs + "<div id='row_" + i + "' style='clear:left;border-top: 1px solid #BBBBBB; width: 95px;'"	
+		divs = divs + "<div id='row_" + i + "' style='clear:left;border-top: 1px solid #BBBBBB; width: 95px; '"	
 
 		for(j=0; j<no_of_rows_n_cols;j++ ) {	
 			divs = divs + "<div id ='" + i + j +"'"
-			divs = divs +  "  style='float:left; width:30px; border-left: 1px solid #BBBBBB;"	
+			divs = divs +  "  style='float:left; width:30px; height:50px; border-left: 1px solid #BBBBBB;"	
 			if(i == 2){
 				divs = divs +  " border-bottom: 1px solid #BBBBBB;"
 			}
@@ -132,10 +132,11 @@ function check_for_snake(div_id) {
 		if(snake_body == 'H' || snake_body == 'X' || snake_body == 'T') {
 			if(document.getElementById('user_snake_body').value == document.getElementById('snake_body').value) {
 				document.getElementById('snake_found').value = 'found'
-				alert("Great! You have found a snake.")	
+				alert("Great! You have found the snake. Restarting the Game!")	
 				document.getElementById('no_of_attempts').value  = 0;
 				document.getElementById('user_snake_body').value = '';
 				document.getElementById('no_of_cells').value = 0;
+				window.location = "/"
 			}
 
 		}
