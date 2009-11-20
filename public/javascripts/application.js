@@ -10,7 +10,7 @@ function loadSnake(difficulty_level) {
 		document.getElementById('snake_grid').value=snake_grid
 	}  
 	else{
-		alert('d');
+		alert("This level has not been implemented yet! Choose 'Easy'");
 	}
 
 
