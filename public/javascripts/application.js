@@ -20,29 +20,65 @@ function generate_snake(no_of_rows_n_cols){
 	document.getElementById('no_of_cells').value = no_of_cells;
 	document.getElementById('snake_body').value = "HXXT";
 	document.getElementById('user_snake_body').value = "";
-	snake_grid = new Array();
-	snake_grid[0] = 'H';
-	snake_grid[1] = '0';
-	snake_grid[2] = '0';
-	snake_grid[3] = 'X';
-	snake_grid[4] = '0';
-	snake_grid[5] = '0';
-	snake_grid[6] = 'X';
-	snake_grid[7] = 'T';
-	snake_grid[8] = '0';
-	return snake_grid
-
-/* For dynamic snake generation
-
-rand_index = Math.ceil(10*Math.random())
-snake_length = (no_of_cells - 1) / 2;
-while(snake_grid.lenght <= no_of_cells){
-snake_grid[rand_index] = 2
-}*/
+	snake_body = generate_snake_body(no_of_rows_n_cols,no_of_cells);
+	return snake_body;
 
 }
 
 
+function generate_snake_body(no_of_rows_n_cols,no_of_cells) {
+
+	rand_index = Math.ceil(10*Math.random());
+	possible_positions = possible_snake_positions();
+	snake_grid = new Array();
+
+	valid_position = possible_positions[rand_index];
+	head = valid_position[0];
+	first_x = valid_position[1];
+	second_x = valid_position[2];
+	tail = valid_position[3];
+	for(i = 0; i< 9; i++) {
+
+		switch(i) {
+			case head:
+			snake_grid[i] = 'H';
+			break;
+			case first_x: 
+			snake_grid[i] = 'X';
+			break;
+			case second_x: 
+			snake_grid[i] = 'X';	
+			break;
+
+			case tail: 
+			snake_grid[i] = 'T';
+			break;
+			default:		
+			snake_grid[i] = '0';
+			break;
+
+		}
+	}
+
+	return snake_grid;
+}
+
+function possible_snake_positions(){
+	possible_positions = new Array();
+	possible_positions[0] = new Array(0,1,2,5);
+	possible_positions[1] =new Array(1,2,5,8);
+	possible_positions[2] =new Array(5,8,7,6);
+	possible_positions[3] = new Array(8,7,6,3);
+	possible_positions[4] =new Array(0,3,6,7);
+	possible_positions[5] =new Array(4,5,8,7);
+	possible_positions[6] = new Array(1,2,5,4);
+	possible_positions[7] = new Array(0,1,4,3);
+	possible_positions[8] =  new Array(8,5,4,7);
+	possible_positions[9] =  new Array(6,3,4,7);
+	possible_positions[10] =  new Array(6,3,4,7);
+
+	return possible_positions
+}
 
 function generateGrid(no_of_rows_n_cols,snake_grid) {
 	divs = ""
@@ -119,8 +155,8 @@ function get_snake_body(i,j,snake_grid) {
 
 
 function check_for_snake(div_id) {
-	snake_body = div_id.innerHTML
-	no_of_attempts = 	document.getElementById('no_of_attempts').value 
+	snake_body = div_id.innerHTML;
+	no_of_attempts = 	document.getElementById('no_of_attempts').value;
 	no_of_cells = parseInt(document.getElementById('no_of_cells').value); 
 	allowded_no_of_attempts = ( no_of_cells - 1) / 2;
 
@@ -130,23 +166,25 @@ function check_for_snake(div_id) {
 		document.getElementById('user_snake_body').value = document.getElementById('user_snake_body').value + snake_body;
 
 		if(snake_body == 'H' || snake_body == 'X' || snake_body == 'T') {
-			if(document.getElementById('user_snake_body').value == document.getElementById('snake_body').value) {
-				document.getElementById('snake_found').value = 'found'
+
+			user_snake = document.getElementById('user_snake_body').value;
+			if(user_snake.search('0') == -1 && user_snake.length == 4) {
+				document.getElementById('snake_found').value = 'found';
 				alert("Great! You have found the snake. Restarting the Game!")	
 				document.getElementById('no_of_attempts').value  = 0;
 				document.getElementById('user_snake_body').value = '';
 				document.getElementById('no_of_cells').value = 0;
-				window.location = "/"
+				window.location = "/";
 			}
 
 		}
 	}
 	else {
-		alert("You dont have any more attempts!. Restarting the Game!")
-		window.location = "/"
+		alert("You dont have any more attempts!. Restarting the Game!");
 		document.getElementById('no_of_attempts').value  = 0;
 		document.getElementById('user_snake_body').value = '';
 		document.getElementById('no_of_cells').value = 0;
+		window.location = "/";
 	}
 
 }
